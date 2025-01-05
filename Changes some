@@ -1,0 +1,6 @@
+
+
+
+flex w-full mt-2 relative custom-md:hidden 
+
+flex items-center relative w-[380px] max-[600px]:w-fit
