@@ -28,7 +28,7 @@ function WebSearch() {
     };
 
     return (
-        <div className="flex items-center relative w-[380px] max-[600px]:w-fit">
+        <div className="flex w-full mt-2 relative custom-md:hidden ">
             <input
                 type="text"
                 className="bg-white px-4 py-2 text-black focus:outline-none w-full max-[600px]:hidden"
