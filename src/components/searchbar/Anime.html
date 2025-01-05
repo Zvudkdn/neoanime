@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Y</title>
+  </head>
+  <body>
+    <h1>Anime</h1>
+    <form>
+      <label for="anime-name">Enter anime name:</label><br>
+      <input autocomplete="off" type="text" placeholder="anime..." id="anime-name" name="anime-name"><br> <p></p>
+      <button type="button" onclick="getAnimeData()">Submit</button>
+    </form>
+    <div id="anime-data"></div>
+    <script>
+      const API_URL = 'https://api.jikan.moe/v4';
+      function getAnimeData() {
+        const animeName = document.getElementById('anime-name').value;
+        fetch(`${API_URL}/anime?q=${animeName}&limit=1`)
+          .then(response => response.json())
+          .then(data => {
+            const anime = data.data[0];
+            const imageUrl = data.data[0].images;
+            const animeDataDiv = document.createElement('div');
+            animeDataDiv.innerHTML = `
+            <p></p>
+              <img src ="${imageUrl.jpg.image_url}">
+              <p><b>Title:</b> ${anime.title}</p>
+              <p><b>Local Name:</b> ${anime.title_japanese} <p>
+              <p><b>Synopsis:</b> ${anime.synopsis}</p>
+              <p><b>Type:</b> ${anime.type}</p>
+              <p><b>Total Episodes:</b> ${anime.episodes}</p>
+            `;
+            
+            document.getElementById('anime-data').appendChild(animeDataDiv);
+          });
+      }
