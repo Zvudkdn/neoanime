@@ -1,29 +1,34 @@
-import React from "react";
-import { updateCurrentlyWatching } from "../utils/localStorageHelper";
+import React, { useEffect, useState } from "react";
+import { getCurrentlyWatching } from "../utils/localStorageHelper";
 
-const AnimeCard = ({ anime }) => {
-  const handleWatch = () => {
-    const animeDetails = {
-      id: anime.id,
-      name: anime.name,
-      poster: anime.poster,
-      episode: anime.episode,
-    };
-    updateCurrentlyWatching(animeDetails);
-  };
+const HomeScreen = () => {
+  const [currentlyWatching, setCurrentlyWatching] = useState(null);
+
+  useEffect(() => {
+    setCurrentlyWatching(getCurrentlyWatching());
+  }, []);
 
   return (
-    <div className="anime-card flex flex-col items-center">
-      <img src={anime.poster} alt={anime.name} className="w-32 h-48 object-cover rounded-md" />
-      <h3 className="text-md font-semibold mt-2">{anime.name}</h3>
-      <button
-        onClick={handleWatch}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
-      >
-        Watch Episode {anime.episode}
-      </button>
+    <div className="recent-watching-container p-4">
+      {currentlyWatching ? (
+        <div className="anime-card flex items-center gap-4 bg-gray-100 p-4 rounded-md">
+          <img
+            src={currentlyWatching.poster}
+            alt={currentlyWatching.name}
+            className="w-16 h-24 object-cover rounded-md"
+          />
+          <div>
+            <h2 className="text-lg font-bold">{currentlyWatching.name}</h2>
+            <p className="text-sm text-gray-600">
+              Watching Episode {currentlyWatching.episode}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <p className="text-gray-500">No anime currently being watched.</p>
+      )}
     </div>
   );
 };
 
-export default AnimeCard;
+export default HomeScreen;
