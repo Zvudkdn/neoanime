@@ -5,7 +5,8 @@ const HomeScreen = () => {
   const [currentlyWatching, setCurrentlyWatching] = useState(null);
 
   useEffect(() => {
-    setCurrentlyWatching(getCurrentlyWatching());
+    const anime = getCurrentlyWatching();
+    setCurrentlyWatching(anime); // Retrieve and set the state
   }, []);
 
   return (
