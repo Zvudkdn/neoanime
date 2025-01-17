@@ -14,6 +14,7 @@ import "./App.css";
 import Search from "./pages/search/Search";
 import Watch from "./pages/watch/Watch";
 import Producer from "./components/producer/Producer";
+import { updateCurrentlyWatching } from "./utils/localStorageHelper"; // Import the helper
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,11 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  // Save the currently watching anime when navigating to the "Watch" page
+  const handleAnimeWatch = (anime) => {
+    updateCurrentlyWatching(anime); // Update Local Storage with anime details
+  };
 
   return (
     <HomeInfoProvider>
@@ -30,7 +36,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<AnimeInfo />} />
-            <Route path="/watch/:id" element={<Watch />} />
+            <Route
+              path="/watch/:id"
+              element={<Watch onAnimeWatch={handleAnimeWatch} />}
+            />
             <Route path="/random" element={<AnimeInfo random={true} />} />
             <Route path="/404-not-found-page" element={<Error error="404" />} />
             <Route path="/error-page" element={<Error />} />
